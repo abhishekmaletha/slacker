@@ -33,7 +33,24 @@ app.get('/', function (req, res) {
 app.get('/msg', function (req, res) {
     console.log('mssg was called');
     axios.post(webhook_url, {
-        text: 'hello abhishek'
+        text: 'join to attend',
+        "attachments": [
+            {
+                "text": "click to open in browser",
+                "fallback": "You are unable to choose a game",
+                "callback_id": "wopr_game",
+                "color": "#3AA3E3",
+                "attachment_type": "default",
+                "actions": [
+                    {
+                        "name": "game",
+                        "text": "Chess",
+                        "type": "button",
+                        "value": "chess",
+                        "url": "https://google.com",
+                    },
+                ]
+            }]
     })
         .then(function (response) {
             console.log('mssg send successfully');
