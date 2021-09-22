@@ -1,14 +1,20 @@
 const express = require('express');
+require('dotenv').config()
 const axios = require('axios');
 const app = express();
+var http = require("http").createServer(app);
 var webhook_url = '';
 app.get('/', function (req, res) {
     const code = req.query.code;
     console.log(code);
+    const clientID = `${process.env.SLACK_CLIENT_ID}`;
+    const clientSECRET = `${process.env.SLACK_CLIENT_SECRET}`;
+    // console.log(clientID);
+    // console.log(clientSECRET);
     axios.post('https://slack.com/api/oauth.v2.access', new URLSearchParams({
         code,
-        client_id: process.env.SLACK_CLIENT_ID,
-        client_secret: process.env.SLACK_CLIENT_SECRET,
+        client_id: clientID,
+        client_secret: clientSECRET,
 
     }).toString(), {
         headers: {
@@ -37,7 +43,7 @@ app.get('/msg', function (req, res) {
             console.log(error);
         });
 })
-var port = process.env.PORT || 8080;
-app.listen(port, () => {
+var port = process.env.PORT || 8000;
+http.listen(port, () => {
     console.log('app is listening');
 })
