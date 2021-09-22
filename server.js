@@ -47,7 +47,7 @@ app.get('/msg', function (req, res) {
                         "text": "Chess",
                         "type": "button",
                         "value": "chess",
-                        "url": "https://google.com",
+                        "url": "https://meet.google.com/cka-sqrx-gyn",
                     },
                 ]
             }]
