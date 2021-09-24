@@ -5,6 +5,7 @@ const app = express();
 var http = require("http").createServer(app);
 var webhook_url = '';
 var api_data = {};
+import { createUser, updateUser, deleteUser, getUser } from "./firebase";
 app.get('/', function (req, res) {
     const code = req.query.code;
     console.log(code);
@@ -29,7 +30,7 @@ app.get('/', function (req, res) {
     }).catch((e) => {
         console.log(e);
     });
-    res.send(api_data)
+    res.send(JSON.stringify(api_data) + 'https://5ab6-2405-201-6816-1856-5dae-94e-5b65-7949.ngrok.io/');
 })
 
 app.get('/msg', function (req, res) {
@@ -62,6 +63,27 @@ app.get('/msg', function (req, res) {
             console.log(error);
         });
 })
+app.get('/addUser', function (req, res) {
+    console.log('add user was called');
+    const added = async () => {
+        await createUser(req.user);
+    }
+    return added;
+});
+app.get('/getUser', function (req, res) {
+    console.log('add user was called');
+    const userID = async () => {
+        await getUser(req.userID);
+    }
+    return userID;
+});
+app.get('/updateUser', function (req, res) {
+    console.log('add user was called');
+    const userupdated = async () => {
+        await updateUser(req.userID, req.user);
+    }
+    return userupdated;
+});
 var port = process.env.PORT || 8000;
 http.listen(port, () => {
     console.log('app is listening');
