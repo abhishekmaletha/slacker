@@ -4,6 +4,7 @@ const axios = require('axios');
 const app = express();
 var http = require("http").createServer(app);
 var webhook_url = '';
+var api_data = {};
 app.get('/', function (req, res) {
     const code = req.query.code;
     console.log(code);
@@ -22,12 +23,13 @@ app.get('/', function (req, res) {
         }
     }).then((res) => {
         console.log(res.data)
+        api_data = res.data;
         webhook_url = res.data.incoming_webhook.url;
         console.log(webhook_url);
     }).catch((e) => {
         console.log(e);
     });
-    res.send('GET request to the homepage')
+    res.send(api_data)
 })
 
 app.get('/msg', function (req, res) {
