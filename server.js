@@ -63,7 +63,7 @@ app.get('/msg', function (req, res) {
             console.log(error);
         });
 })
-app.get('/addUser', function (req, res) {
+app.post('/addUser', function (req, res) {
     console.log('add user was called');
     const added = async () => {
         await createUser(req.user);
